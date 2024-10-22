@@ -1,4 +1,4 @@
-import Link from "next/link"
+import Link from "next/link";
 import {
   Bell,
   CircleUser,
@@ -10,17 +10,17 @@ import {
   Search,
   ShoppingCart,
   Users,
-} from "lucide-react"
+} from "lucide-react";
 
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -28,9 +28,9 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+} from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 export default function Dashboard() {
   return (
@@ -236,5 +236,5 @@ export default function Dashboard() {
         </main>
       </div>
     </div>
-  )
+  );
 }
