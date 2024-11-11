@@ -76,6 +76,7 @@ export default function AnalyticsDashboard() {
   );
   const [selectedRegion, setSelectedRegion] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [searchParams, setSearchParams] = useState<string>("");
 
   const fetchData = async () => {
     setLoading(true);
@@ -86,9 +87,18 @@ export default function AnalyticsDashboard() {
       if (dateRange?.to) params.append("endDate", dateRange.to.toISOString());
       if (selectedRegion) params.append("region", selectedRegion);
       if (selectedCategory) params.append("category", selectedCategory);
+      if (searchParams) params.append("search", searchParams);
 
       const response = await fetch(`/api/analytics?${params.toString()}`);
       const result = await response.json();
+
+      // Update the URL with the search parameters without page reload
+      window.history.pushState(
+        {},
+        "",
+        `${window.location.pathname}?${params.toString()}`
+      );
+
       setData(result);
     } catch (error) {
       console.error("Error fetching analytics:", error);
@@ -99,7 +109,7 @@ export default function AnalyticsDashboard() {
 
   useEffect(() => {
     fetchData();
-  }, [dateRange, selectedRegion, selectedCategory]);
+  }, [dateRange, selectedRegion, selectedCategory, searchParams]);
 
   if (loading) {
     return (
@@ -119,8 +129,15 @@ export default function AnalyticsDashboard() {
 
   return (
     <div className="p-6 space-y-6">
-      {/* Filters */}
+      {/* Add search input before the filters */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchParams}
+          onChange={(e) => setSearchParams(e.target.value)}
+          className="border rounded-md p-2"
+        />
         <DatePickerWithRange
           date={dateRange}
           setDate={(date) =>
