@@ -98,6 +98,7 @@ export default function AnalyticsDashboard() {
         "",
         `${window.location.pathname}?${params.toString()}`
       );
+      console.log("Fetched analytics data:", result);
 
       setData(result);
     } catch (error) {
