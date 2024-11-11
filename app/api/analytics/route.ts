@@ -3,6 +3,8 @@ import { NextResponse } from 'next/server';
 import clientPromise from '@/lib/mongodb';
 import type { NextRequest } from 'next/server';
 
+export const dynamic = 'force-dynamic'; // Add this line
+
 export async function GET(request: NextRequest) {
   try {
     const client = await clientPromise;
@@ -16,12 +18,10 @@ export async function GET(request: NextRequest) {
     const category = searchParams.get('category');
 
     // Base match stage for filtering
-    
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const matchStage: any = {};
+    const matchStage: Record<string, string | { $gte?: string; $lte?: string }> = {};
     
     if (startDate || endDate) {
-      matchStage['Order Date'] = {};
+      matchStage['Order Date'] = {} as { $gte?: string; $lte?: string };
       if (startDate) matchStage['Order Date']['$gte'] = startDate;
       if (endDate) matchStage['Order Date']['$lte'] = endDate;
     }
